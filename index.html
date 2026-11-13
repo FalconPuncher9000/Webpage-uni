@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#17191c">
+  <meta name="description" content="Conheça Metal Slug, clássico run-and-gun dos arcades: sua história, produção, imagens e gameplay.">
+  <title>METAL SLUG — Arquivo Arcade</title>
+  <style>
+    :root {
+      --bg: #17191c;
+      --panel: #202522;
+      --panel-2: #292f2a;
+      --green: #536b48;
+      --green-light: #8da078;
+      --gold: #c49a50;
+      --red: #a33b30;
+      --sand: #e2d9c5;
+      --muted: #aaa99e;
+      --line: rgba(226, 217, 197, .16);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --max: 1160px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+    body {
+      margin: 0;
+      color: var(--sand);
+      background:
+        linear-gradient(rgba(16,18,17,.94), rgba(16,18,17,.97)),
+        url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=2000&q=80") center/cover fixed;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      line-height: 1.65;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .13;
+      z-index: -1;
+      background-image: repeating-linear-gradient(0deg, transparent 0 3px, rgba(255,255,255,.08) 4px);
+    }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+    button { font: inherit; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px;
+      color: var(--gold); font-size: .76rem; font-weight: 800;
+      letter-spacing: .2em; text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 26px; height: 2px; background: var(--red); }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { line-height: 1.08; }
+    h2 {
+      margin-bottom: 16px; font-size: clamp(2rem, 5vw, 3.4rem);
+      text-transform: uppercase; letter-spacing: .035em;
+    }
+    h2 span { color: var(--gold); }
+    .section-intro { max-width: 720px; color: var(--muted); margin-bottom: 34px; }
+    .section { padding: 96px 0; border-top: 1px solid var(--line); }
+    .section-heading { margin-bottom: 34px; }
+
+    /* Navegação */
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(20,23,21,.94); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-wrap {
+      min-height: 74px; display: flex; align-items: center;
+      justify-content: space-between; gap: 24px;
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: 11px;
+      color: var(--sand); text-decoration: none; font-weight: 900;
+      letter-spacing: .13em; font-size: 1.08rem;
+    }
+    .brand-mark {
+      display: grid; place-items: center; width: 36px; height: 36px;
+      color: #17191c; background: var(--gold); font-weight: 1000;
+      clip-path: polygon(50% 0, 92% 18%, 100% 65%, 50% 100%, 0 65%, 8% 18%);
+    }
+    .nav-links { display: flex; align-items: center; gap: clamp(12px, 2vw, 26px); }
+    .nav-links a {
+      text-decoration: none; color: #c9c4b6; font-size: .78rem;
+      text-transform: uppercase; letter-spacing: .08em; font-weight: 800;
+      transition: color .2s ease;
+    }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--gold); }
+    .menu-toggle {
+      display: none; border: 1px solid var(--line); color: var(--sand);
+      background: transparent; border-radius: 4px; padding: 8px 11px; cursor: pointer;
+    }
+
+    /* Abertura */
+    .hero {
+      min-height: min(780px, calc(100svh - 74px));
+      display: grid; align-items: center; position: relative; overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(13,17,15,.96) 0%, rgba(13,17,15,.78) 48%, rgba(13,17,15,.22) 100%),
+        linear-gradient(0deg, var(--bg), transparent 30%),
+        url("https://i0.wp.com/retroarcadia.blog/wp-content/uploads/2023/03/mslug-230301-191546.jpg?fit=1200%2C900&ssl=1") center/cover;
+    }
+    .hero::after {
+      content: "001"; position: absolute; right: 5%; bottom: -10%;
+      font-size: clamp(12rem, 32vw, 28rem); line-height: .8; font-weight: 1000;
+      color: rgba(226,217,197,.055); pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; padding: 90px 0 110px; max-width: 760px; }
+    .hero-kicker { color: var(--gold); letter-spacing: .25em; font-size: .82rem; font-weight: 900; }
+    .hero h1 {
+      margin: 14px 0 20px; font-size: clamp(3.5rem, 10vw, 8rem);
+      font-weight: 1000; letter-spacing: -.065em; text-transform: uppercase;
+      text-shadow: 5px 6px 0 rgba(0,0,0,.35);
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero-copy { max-width: 570px; color: #d0cbbb; font-size: clamp(1rem, 2vw, 1.2rem); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 30px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      min-height: 48px; padding: 0 20px; border: 1px solid var(--gold);
+      background: var(--gold); color: #17191c; text-decoration: none;
+      text-transform: uppercase; font-size: .78rem; letter-spacing: .1em;
+      font-weight: 900; cursor: pointer; transition: transform .2s, background .2s, color .2s;
+    }
+    .btn:hover { transform: translateY(-3px); background: #d7b36f; }
+    .btn-secondary { background: transparent; color: var(--sand); border-color: rgba(226,217,197,.45); }
+    .btn-secondary:hover { color: #17191c; background: var(--sand); }
+    .hero-stamp {
+      display: inline-flex; align-items: center; gap: 10px; margin-top: 42px;
+      color: var(--muted); font-size: .76rem; letter-spacing: .14em; text-transform: uppercase;
+    }
+    .hero-stamp strong { color: var(--sand); }
+
+    /* Sobre */
+    .about-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 42px; align-items: center; }
+    .feature-image { position: relative; border: 1px solid var(--line); padding: 9px; background: #202522; box-shadow: var(--shadow); }
+    .feature-image img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+    .image-label {
+      position: absolute; left: 20px; bottom: 20px; padding: 8px 12px;
+      background: var(--red); color: white; font-size: .7rem; font-weight: 900;
+      letter-spacing: .12em; text-transform: uppercase;
+    }
+    .about-copy p { color: #c7c2b5; }
+    .facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 25px; }
+    .fact { padding: 15px; background: rgba(83,107,72,.17); border-left: 3px solid var(--green-light); }
+    .fact strong { display: block; color: var(--gold); font-size: .73rem; letter-spacing: .12em; text-transform: uppercase; }
+    .fact span { font-size: .94rem; }
+
+    /* Produção */
+    .production { background: linear-gradient(180deg, rgba(40,48,40,.34), rgba(23,25,28,.2)); }
+    .timeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .timeline-card {
+      min-height: 220px; padding: 25px; position: relative;
+      background: linear-gradient(145deg, rgba(45,54,45,.9), rgba(30,34,31,.92));
+      border: 1px solid var(--line); overflow: hidden;
+    }
+    .timeline-card::after {
+      content: ""; position: absolute; width: 90px; height: 90px; right: -28px; bottom: -28px;
+      border: 12px solid rgba(196,154,80,.12); transform: rotate(35deg);
+    }
+    .year { color: var(--gold); font-size: 2rem; font-weight: 1000; }
+    .timeline-card h3 { margin: 12px 0 9px; font-size: 1.12rem; text-transform: uppercase; }
+    .timeline-card p { color: var(--muted); font-size: .92rem; margin-bottom: 0; }
+    .production-note {
+      margin-top: 20px; padding: 18px 20px; border-left: 3px solid var(--red);
+      background: rgba(163,59,48,.1); color: #d1c9b8;
+    }
+
+    /* Onde jogar */
+    .platform-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .platform-card {
+      display: flex; gap: 20px; align-items: center; padding: 22px;
+      border: 1px solid var(--line); background: rgba(32,37,34,.9);
+      transition: transform .25s, border-color .25s;
+    }
+    .platform-card:hover { transform: translateY(-5px); border-color: var(--gold); }
+    .platform-icon {
+      flex: 0 0 62px; height: 62px; display: grid; place-items: center;
+      background: var(--panel-2); color: var(--gold); font-size: 1.55rem; font-weight: 1000;
+      border: 1px solid var(--line);
+    }
+    .platform-card h3 { margin: 0 0 5px; font-size: 1.1rem; }
+    .platform-card p { margin: 0 0 10px; color: var(--muted); font-size: .88rem; }
+    .text-link { color: var(--gold); font-size: .8rem; font-weight: 900; text-decoration: none; text-transform: uppercase; letter-spacing: .08em; }
+    .text-link:hover { text-decoration: underline; }
+
+    /* Galeria */
+    .gallery { background: rgba(13,15,14,.42); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .gallery-item {
+      position: relative; padding: 0; border: 1px solid var(--line);
+      background: #222; cursor: zoom-in; overflow: hidden; min-height: 180px;
+    }
+    .gallery-item img { width: 100%; height: 100%; min-height: 180px; object-fit: cover; transition: transform .45s, filter .3s; }
+    .gallery-item:hover img { transform: scale(1.07); filter: brightness(1.12); }
+    .gallery-item::after {
+      content: "AMPLIAR +"; position: absolute; right: 10px; bottom: 10px;
+      padding: 6px 9px; color: #17191c; background: var(--gold);
+      font-size: .65rem; font-weight: 1000; letter-spacing: .1em;
+    }
+
+    /* Gameplay */
+    .gameplay-layout { display: grid; grid-template-columns: .72fr 1.28fr; gap: 36px; align-items: center; }
+    .video-frame {
+      position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden;
+      background: #080909; border: 7px solid #303630; box-shadow: var(--shadow);
+    }
+    .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .gameplay-copy p { color: var(--muted); }
+    .gameplay-copy .small-note { font-size: .78rem; color: #918f84; }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 100; display: grid; place-items: center;
+      padding: 24px; background: rgba(5,7,6,.94); opacity: 0; visibility: hidden;
+      transition: opacity .25s, visibility .25s;
+    }
+    .lightbox.open { opacity: 1; visibility: visible; }
+    .lightbox img { max-width: min(1100px, 92vw); max-height: 82vh; object-fit: contain; box-shadow: 0 20px 70px #000; }
+    .lightbox-close {
+      position: absolute; top: 20px; right: 25px; width: 46px; height: 46px;
+      border: 1px solid var(--line); background: #252a26; color: var(--sand);
+      font-size: 1.7rem; cursor: pointer;
+    }
+    .lightbox-caption { color: var(--muted); text-align: center; margin-top: 12px; font-size: .82rem; }
+
+    /* Animações */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: .12s; }
+    .delay-2 { transition-delay: .24s; }
+    .delay-3 { transition-delay: .36s; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    @media (max-width: 850px) {
+      .menu-toggle { display: inline-flex; }
+      .nav-links {
+        display: none; position: absolute; top: 74px; left: 0; right: 0;
+        padding: 18px 22px 22px; background: #171b18; border-bottom: 1px solid var(--line);
+        flex-direction: column; align-items: flex-start;
+      }
+      .nav-links.open { display: flex; }
+      .about-grid, .gameplay-layout { grid-template-columns: 1fr; }
+      .about-grid { gap: 28px; }
+      .timeline { grid-template-columns: 1fr; }
+      .timeline-card { min-height: 0; }
+    }
+    @media (max-width: 600px) {
+      .container { width: min(100% - 28px, var(--max)); }
+      .section { padding: 70px 0; }
+      .hero { min-height: 650px; background-position: 58% center; }
+      .hero-content { padding: 75px 0; }
+      .hero h1 { font-size: clamp(3.25rem, 17vw, 5.5rem); }
+      .facts, .platform-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 9px; }
+      .gallery-item, .gallery-item img { min-height: 125px; }
+      .platform-card { align-items: flex-start; padding: 16px; gap: 14px; }
+      .platform-icon { flex-basis: 48px; height: 48px; }
+      .hero-actions .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#inicio" aria-label="Metal Slug - início">
+        <span class="brand-mark">M</span><span>METAL SLUG</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks">☰ MENU</button>
+      <nav class="nav-links" id="navLinks" aria-label="Navegação principal">
+        <a href="#inicio">Início</a>
+        <a href="#sobre">O jogo</a>
+        <a href="#producao">Produção</a>
+        <a href="#plataformas">Onde jogar</a>
+        <a href="#galeria">Galeria</a>
+        <a href="#gameplay">Gameplay</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container">
+        <div class="hero-content reveal visible">
+          <div class="hero-kicker">Arquivo arcade · Desde 1996</div>
+          <h1>METAL<br><span>SLUG</span></h1>
+          <p class="hero-copy">Prepare-se para conhecer um dos maiores clássicos do run-and-gun. Ação frenética, pixel art memorável e combates que marcaram a história dos fliperamas.</p>
+          <div class="hero-actions">
+            <a class="btn" href="#sobre">Conhecer o jogo <span>↓</span></a>
+            <a class="btn btn-secondary" href="#gameplay">Assistir gameplay <span>▶</span></a>
+          </div>
+          <div class="hero-stamp">Missão <strong>001</strong> <span>•</span> Neo Geo <span>•</span> 1996</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sobre">
+      <div class="container about-grid">
+        <div class="feature-image reveal">
+          <img src="https://static.wixstatic.com/media/fb2f83_5aa2eda5e072468189b575abaa2814df~mv2.png/v1/fill/w_980%2Ch_737%2Cal_c%2Cq_90%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/fb2f83_5aa2eda5e072468189b575abaa2814df~mv2.png" alt="Ambiente de videogame e cultura arcade" loading="lazy">
+          <span class="image-label">Clássico dos arcades</span>
+        </div>
+        <div class="about-copy reveal delay-1">
+          <div class="section-heading">
+            <span class="eyebrow">01 / Apresentação</span>
+            <h2>O que é <span>Metal Slug?</span></h2>
+          </div>
+          <p><strong>Metal Slug: Super Vehicle-001</strong> é um jogo de ação do gênero run-and-gun lançado em 1996 para o sistema Neo Geo MVS. Nele, o jogador atravessa cenários de combate em rolagem lateral, enfrentando tropas inimigas, resgatando prisioneiros de guerra e utilizando um arsenal variado.</p>
+          <p>A aventura acompanha os soldados Marco Rossi e Tarma Roving, integrantes da unidade Peregrine Falcon, em uma missão contra o exército rebelde liderado pelo General Morden. O jogo combina ação intensa, humor cartunesco, animações detalhadas e veículos de combate — entre eles o tanque SV-001, conhecido como Metal Slug.</p>
+          <div class="facts">
+            <div class="fact"><strong>Lançamento</strong><span>1996</span></div>
+            <div class="fact"><strong>Gênero</strong><span>Run-and-gun</span></div>
+            <div class="fact"><strong>Desenvolvimento</strong><span>Nazca Corporation</span></div>
+            <div class="fact"><strong>Plataforma original</strong><span>Neo Geo MVS / AES</span></div>
+          </div>
+          <p style="margin-top:22px"><a class="text-link" href="https://pt.wikipedia.org/wiki/Metal_Slug" target="_blank" rel="noopener noreferrer">Conheça a história de Metal Slug na Wikipédia ↗</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section production" id="producao">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">02 / Bastidores</span>
+          <h2>História da <span>produção</span></h2>
+          <p class="section-intro">O primeiro Metal Slug nasceu do trabalho de desenvolvedores experientes em jogos de ação. A produção ficou a cargo da Nazca Corporation, estúdio que posteriormente passou a integrar a SNK.</p>
+        </div>
+        <div class="timeline">
+          <article class="timeline-card reveal">
+            <div class="year">1994</div>
+            <h3>Origem da Nazca</h3>
+            <p>A Nazca Corporation foi formada por profissionais com experiência anterior na indústria de arcades, incluindo antigos integrantes da Irem. O estúdio se dedicou à criação de jogos para o ecossistema Neo Geo.</p>
+          </article>
+          <article class="timeline-card reveal delay-1">
+            <div class="year">1995–96</div>
+            <h3>Desenvolvimento</h3>
+            <p>A equipe construiu uma aventura de ação com cenários detalhados, personagens expressivos, animações quadro a quadro, humor visual e veículos pilotáveis. O resultado se destacou pela qualidade da pixel art.</p>
+          </article>
+          <article class="timeline-card reveal delay-2">
+            <div class="year">1996</div>
+            <h3>Estreia nos arcades</h3>
+            <p>Metal Slug: Super Vehicle-001 chegou aos fliperamas no sistema Neo Geo MVS em 1996. A franquia cresceu e se tornou uma das séries mais reconhecidas da SNK.</p>
+          </article>
+        </div>
+        <div class="production-note reveal">
+          <strong>Sobre a empresa:</strong> a Nazca foi posteriormente adquirida pela SNK. A combinação entre a experiência da equipe e o hardware Neo Geo ajudou a definir a identidade visual e o ritmo de ação do jogo.
+          <br><a class="text-link" href="https://en.wikipedia.org/wiki/Nazca_Corporation" target="_blank" rel="noopener noreferrer">Conheça a Nazca Corporation ↗</a>
+          <span style="padding:0 8px;color:#777">|</span>
+          <a class="text-link" href="https://pt.wikipedia.org/wiki/SNK" target="_blank" rel="noopener noreferrer">Conheça a SNK ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="plataformas">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">03 / Acesso</span>
+          <h2>Onde jogar <span>hoje?</span></h2>
+          <p class="section-intro">O clássico recebeu relançamentos e versões para plataformas modernas. Consulte as páginas das lojas para verificar disponibilidade, compatibilidade e preço na sua região.</p>
+        </div>
+        <div class="platform-grid">
+          <article class="platform-card reveal">
+            <div class="platform-icon">GOG</div>
+            <div>
+              <h3>GOG</h3>
+              <p>Versão para computador, disponível na loja digital conforme região e catálogo atual.</p>
+              <a class="text-link" href="https://www.gog.com/en/game/metal_slug" target="_blank" rel="noopener noreferrer">Consultar na GOG ↗</a>
+            </div>
+          </article>
+          <article class="platform-card reveal delay-1">
+            <div class="platform-icon">S</div>
+            <div>
+              <h3>Steam</h3>
+              <p>Edição para PC. Confira a página da loja para informações de compra e requisitos.</p>
+              <a class="text-link" href="https://store.steampowered.com/app/366250/METAL_SLUG/" target="_blank" rel="noopener noreferrer">Consultar na Steam ↗</a>
+            </div>
+          </article>
+        </div>
+        <p class="small-note" style="margin-top:18px;color:var(--muted);font-size:.8rem">Observação: a disponibilidade digital pode mudar ao longo do tempo e variar entre países. Também existem versões para consoles e coletâneas, dependendo da plataforma e da região.</p>
+      </div>
+    </section>
+
+    <section class="section gallery" id="galeria">
+      <div class="container">
+        <div class="section-heading reveal">
+          <span class="eyebrow">04 / Registro visual</span>
+          <h2>Galeria de <span>imagens</span></h2>
+          <p class="section-intro">Uma seleção visual para entrar no clima da série. Selecione uma imagem para ampliá-la.</p>
+        </div>
+        <div class="gallery-grid">
+          <button class="gallery-item reveal" data-full="https://i0.wp.com/retroarcadia.blog/wp-content/uploads/2023/03/mslug-230301-191546.jpg?fit=1200%2C900&ssl=1" data-caption="Combate contra tanque inimigo — Metal Slug">
+            <img src="https://i0.wp.com/retroarcadia.blog/wp-content/uploads/2023/03/mslug-230301-191546.jpg?fit=700%2C525&ssl=1" alt="Metal Slug: soldado enfrenta um tanque em cenário de floresta" loading="lazy">
+          </button>
+          <button class="gallery-item reveal delay-1" data-full="https://static.wixstatic.com/media/fb2f83_5aa2eda5e072468189b575abaa2814df~mv2.png/v1/fill/w_1600%2Ch_1200%2Cal_c%2Cq_90%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/fb2f83_5aa2eda5e072468189b575abaa2814df~mv2.png" data-caption="Combate em cenário industrial — Metal Slug">
+            <img src="https://static.wixstatic.com/media/fb2f83_5aa2eda5e072468189b575abaa2814df~mv2.png/v1/fill/w_700%2Ch_525%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/fb2f83_5aa2eda5e072468189b575abaa2814df~mv2.png" alt="Metal Slug: soldado combate inimigos em cenário industrial" loading="lazy">
+          </button>
+          <button class="gallery-item reveal delay-2" data-full="https://static.wixstatic.com/media/fb2f83_7bc36315fb1840f8a9e9339fbe854ae0~mv2.png/v1/fill/w_1600%2Ch_1200%2Cal_c%2Cq_90%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/fb2f83_7bc36315fb1840f8a9e9339fbe854ae0~mv2.png" data-caption="Tanque Metal Slug em missão na neve">
+            <img src="https://static.wixstatic.com/media/fb2f83_7bc36315fb1840f8a9e9339fbe854ae0~mv2.png/v1/fill/w_700%2Ch_525%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/fb2f83_7bc36315fb1840f8a9e9339fbe854ae0~mv2.png" alt="Metal Slug: tanque e soldado em cenário nevado" loading="lazy">
+          </button>
+          <button class="gallery-item reveal" data-full="https://www.snk-corp.co.jp/us/games/acaneogeo/metalslug/img/ss2.png" data-caption="Fase urbana — Metal Slug">
+            <img src="https://www.snk-corp.co.jp/us/games/acaneogeo/metalslug/img/ss2.png" alt="Metal Slug: combate em rua de uma cidade" loading="lazy">
+          </button>
+          <button class="gallery-item reveal delay-1" data-full="https://www.snk-corp.co.jp/us/games/acaneogeo/metalslug/img/ss3.png" data-caption="Ação cooperativa e explosões — Metal Slug">
+            <img src="https://www.snk-corp.co.jp/us/games/acaneogeo/metalslug/img/ss3.png" alt="Metal Slug: dois soldados em meio a uma explosão" loading="lazy">
+          </button>
+          <button class="gallery-item reveal delay-2" data-full="https://www.snk-corp.co.jp/us/games/acaneogeo/metalslug/img/ss4.png" data-caption="Captura oficial de gameplay — Metal Slug">
+            <img src="https://www.snk-corp.co.jp/us/games/acaneogeo/metalslug/img/ss4.png" alt="Metal Slug: captura oficial de gameplay" loading="lazy">
+          </button>
+        </div>
+        <p style="margin-top:16px;color:var(--muted);font-size:.78rem">A galeria apresenta capturas de tela de Metal Slug hospedadas por publicações e bases de imagens de jogos. A disponibilidade dessas imagens depende dos respectivos sites.</p>
+      </div>
+    </section>
+
+    <section class="section" id="gameplay">
+      <div class="container gameplay-layout">
+        <div class="gameplay-copy reveal">
+          <span class="eyebrow">05 / Em ação</span>
+          <h2>Assista ao <span>gameplay</span></h2>
+          <p>Veja a dinâmica de combate, os cenários em rolagem lateral e o estilo visual que tornaram Metal Slug um clássico dos arcades.</p>
+          <p class="small-note">O vídeo contém uma compilação de gameplay; o trecho do primeiro Metal Slug começa em 00:35. A reprodução depende de conexão com a internet e das permissões de incorporação do YouTube.</p>
+          <a class="text-link" href="https://www.youtube.com/watch?v=v4msZY1K_d8&t=35s" target="_blank" rel="noopener noreferrer">Encontrar outros gameplays ↗</a>
+        </div>
+        <div class="video-frame reveal delay-1">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/v4msZY1K_d8?start=35"
+            title="Gameplay de Metal Slug: Super Vehicle-001"
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Janela de ampliação da galeria -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagem ampliada">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Fechar imagem">×</button>
+    <div>
+      <img id="lightboxImage" src="" alt="">
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+  </div>
+
+  <script>
+    // Menu adaptável para telas menores
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.textContent = isOpen ? "✕ FECHAR" : "☰ MENU";
+    });
+
+    // Fecha o menu depois que um link interno é selecionado
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "☰ MENU";
+      });
+    });
+
+    // Lightbox: amplia imagens selecionadas
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightboxImage");
+    const lightboxCaption = document.getElementById("lightboxCaption");
+    const lightboxClose = document.getElementById("lightboxClose");
+    let previousFocus = null;
+
+    document.querySelectorAll(".gallery-item").forEach(item => {
+      item.addEventListener("click", () => {
+        previousFocus = document.activeElement;
+        const image = item.querySelector("img");
+        lightboxImage.src = item.dataset.full;
+        lightboxImage.alt = image.alt;
+        lightboxCaption.textContent = item.dataset.caption || image.alt;
+        lightbox.classList.add("open");
+        document.body.style.overflow = "hidden";
+        lightboxClose.focus();
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove("open");
+      document.body.style.overflow = "";
+      lightboxImage.src = "";
+      if (previousFocus) previousFocus.focus();
+    }
+
+    lightboxClose.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", event => {
+      if (event.target === lightbox) closeLightbox();
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && lightbox.classList.contains("open")) closeLightbox();
+    });
+
+    // Animações de entrada durante a rolagem
+    const revealElements = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealElements.forEach(element => {
+        if (!element.classList.contains("visible")) observer.observe(element);
+      });
+    } else {
+      revealElements.forEach(element => element.classList.add("visible"));
+    }
+  </script>
+</body>
+</html>
